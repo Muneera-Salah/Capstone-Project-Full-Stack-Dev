@@ -3,7 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 import json
 import os
 
-database_path = os.environ['DATABASE_URL']
+# database_path = os.environ['DATABASE_URL']
+
+database_name = "capstonefsnd"
+database_path = "postgres://{}:{}@{}/{}".format('postgres', 'postgres','localhost:5432', database_name)
 
 db = SQLAlchemy()
 
@@ -41,5 +44,28 @@ class Actor(db.Model):
       'id': self.id,
       'name': self.name,
       'gender': self.gender,
+      'age': self.age
       }
-      
+
+'''
+Movie
+Have name and release date
+'''
+class Movie(db.Model):  
+  __tablename__ = 'Movie'
+
+  id = Column(Integer, primary_key=True)
+  title = Column(String)
+  release_date = Column(String)
+
+  def __init__(self, title, release_date):
+    self.title = title
+    self.release_date = release_date
+
+  def format(self):
+    return {
+      'id': self.id,
+      'title': self.title,
+      'release_date': self.release_date
+      }
+            
