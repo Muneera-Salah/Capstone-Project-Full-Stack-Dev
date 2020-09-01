@@ -68,9 +68,20 @@ class Movie(db.Model):
       'release_date': self.release_date
       }
             
+  def insert(self):
+    db.session.add(self)
+    db.session.commit()
+
+  def update(self):
+    db.session.commit()
+    
+  def delete(self):
+    db.session.delete(self)
+    db.session.commit()
+
 '''
 Cast
-Have actir id and movie id
+Have actor id and movie id
 '''
 class Cast(db.Model):  
   __tablename__ = 'Cast'

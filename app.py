@@ -29,23 +29,89 @@ def create_app(test_config=None):
   
   @app.route('/actors', methods=['GET'])
   def get_actors():
-    query_results = Actor.query.all()
-    actors = [data.format() for data in query_results]
-    return jsonify({
-        'success':True,
-        'actors': actors
-    })
+    try:
+      query_results = Actor.query.all()
+      if query_results is None:
+          abort(404)
+      else:    
+        actors = [data.format() for data in query_results]
+        return jsonify({
+            'success':True,
+            'actors': actors
+        })
+    except:
+      abort(422)  
 
   @app.route('/movies', methods=['GET'])
   def get_movies():
-    query_results = Movie.query.all()
-    movies = [data.format() for data in query_results]
-    return jsonify({
-        'success':True,
-        'movies': movies
-    })
+    try:
+      query_results = Movie.query.all()
+      if query_results is None:
+          abort(404)
+      else:        
+        query_results = Movie.query.all()
+        movies = [data.format() for data in query_results]
+        return jsonify({
+            'success':True,
+            'movies': movies
+        })
+    except:
+      abort(422)    
+
+  @app.route('/moive', methods=['POST'])
+  def add_movie():
+    body = request.get_json()
+    new_title = body.get('title', None)
+    new_release_date = body.get('release_date', None)
+    try:
+        movie = Movie(title=new_title, release_date=new_release_date)
+        movie.insert()
+        body['id'] = Movie.id
+        return jsonify({
+            "success": True,
+            "movie": movie.format()
+            })
+    except:
+      abort(422)
+
+  @app.route('/movies/<int:id>', methods=['PATCH'])
+  def update_movie(id):
+    movie = Movie.query.filter(Movie.id == id).one_or_none()
+    if movie is None:
+      abort(404)
+
+    body = request.get_json()
+    new_title = body.get('title', None)
+    new_release_date = body.get('release_date', None)
     
-    
+    movie.title = new_title
+    movie.release_date = new_release_date
+
+    try:
+      movie.update()
+      return jsonify({
+          "success": True,
+          "movie": movie.format()
+          })
+    except:
+      abort(404)
+
+
+  @app.route('/movies/<int:id>', methods=['DELETE'])
+  def delete_movie(id): 
+    try:
+      movie = Movie.query.filter(Movie.id == id).one_or_none()
+      if movie is None:
+          abort(404)
+      else:
+          movie.delete()
+          return jsonify({
+              "success": True,
+              "delete": id
+          })
+    except:
+        abort(404)
+
   ''' 
   Error Handling
   '''
