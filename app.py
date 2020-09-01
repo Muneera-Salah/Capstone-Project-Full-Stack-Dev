@@ -30,11 +30,21 @@ def create_app(test_config=None):
   @app.route('/actors', methods=['GET'])
   def get_actors():
     query_results = Actor.query.all()
-    actors = [category.format() for category in query_results]
+    actors = [data.format() for data in query_results]
     return jsonify({
         'success':True,
         'actors': actors
     })
+
+  @app.route('/movies', methods=['GET'])
+  def get_movies():
+    query_results = Movie.query.all()
+    movies = [data.format() for data in query_results]
+    return jsonify({
+        'success':True,
+        'movies': movies
+    })
+    
     
   ''' 
   Error Handling
