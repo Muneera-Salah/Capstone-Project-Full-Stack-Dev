@@ -7,7 +7,7 @@ from models import setup_db, Actor, Movie, Cast
 
 database_path = os.environ['DATABASE_URL']
 # localhost
-# database_name = "capstone_test"
+# database_name = "capstone"
 # database_path = "postgres://{}:{}@{}/{}".format('postgres', 'postgres','localhost:5432', database_name)
 
 
@@ -36,10 +36,21 @@ class CapstoneTestCase(unittest.TestCase):
             'gender': 'male',
             'age': 61
         }
-        
+
         self.new_moive_missing_name = {
             'release_date': '1995-1-1'
         }
+
+        self.update_actor_data = {
+            'name': 'Tom Hanks',
+            'gender': 'male',
+            'age': 60
+        }     
+        
+        self.update_moive_data = {
+            'title': 'Toy Story2',
+            'release_date': '2020-1-1'
+        }     
 
         # binds the app to the current context
         with self.app.app_context():
@@ -52,11 +63,30 @@ class CapstoneTestCase(unittest.TestCase):
         """Executed after reach test"""
         pass
 
-    def test_create_new_movie(self):
-        res = self.client().post('/moive', json=self.new_movie)
+    '''
+    GET
+    /actors route
+    '''
+    def test_get_actors(self):
+        res = self.client().get('/actors')
         data = json.loads(res.data)
-        pass
-
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['actors'])
+    '''
+    GET
+    /movies route
+    '''
+    def test_get_movies(self):
+        res = self.client().get('/movies')
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['movies'])
+    '''
+    POST
+    /actor route
+    '''
     def test_create_new_actor(self):
         res = self.client().post('/actor', json=self.new_actor)
         data = json.loads(res.data)
@@ -69,12 +99,75 @@ class CapstoneTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'unprocessable')
 
+    '''
+    POST
+    /moive route
+    '''
+    def test_create_new_movie(self):
+        res = self.client().post('/moive', json=self.new_movie)
+        data = json.loads(res.data)
+        pass
+
     def test_422_if_moive_creation_fails(self):
         res = self.client().post('/moive', json=self.new_moive_missing_name)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 422)
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'unprocessable')
+
+    '''
+    PATCH
+    /actors/<int:id> route
+    '''
+    def test_update_actor(self):
+        res = self.client().patch('/actors/1', json=self.update_actor_data)
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['actor'])
+
+    def test_404_if_update_actor_fails(self):
+        res = self.client().patch('/actors/5000', json=self.update_actor_data)
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'resource not found')
+
+    '''
+    PATCH
+    /movies/<int:id> route
+    '''
+    def test_update_movie(self):
+        res = self.client().patch('/movies/1', json=self.update_moive_data)
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['movie'])
+
+    def test_404_if_update_movie_fails(self):
+        res = self.client().patch('/movies/5000', json=self.update_moive_data)
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'resource not found')
+
+    '''
+    DELETE
+    /movies/<int:id> route
+    '''
+    def test_detete_moive(self):
+        res = self.client().delete('/movies/1')
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['moive_id'])
+
+    def test_404_if_detete_moive_fails(self):
+        res = self.client().delete('/movies/5000')
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'resource not found')
 
 # Make the tests conveniently executable
 if __name__ == "__main__":

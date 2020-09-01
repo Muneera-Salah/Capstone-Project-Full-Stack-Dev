@@ -4,6 +4,9 @@ import json
 import os
 
 database_path = os.environ['DATABASE_URL']
+# localhost
+# database_name = "capstone_test"
+# database_path = "postgres://{}:{}@{}/{}".format('postgres', 'postgres','localhost:5432', database_name)
 
 db = SQLAlchemy()
 
@@ -54,7 +57,7 @@ class Actor(db.Model):
   def delete(self):
     db.session.delete(self)
     db.session.commit()
-    
+
 '''
 Movie
 Have name and release date

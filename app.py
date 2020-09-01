@@ -147,7 +147,7 @@ def create_app(test_config=None):
           movie.delete()
           return jsonify({
               "success": True,
-              "delete": id
+              "moive_id": id
           })
     except:
         abort(404)
