@@ -56,7 +56,24 @@ def create_app(test_config=None):
             'movies': movies
         })
     except:
-      abort(422)    
+      abort(422)
+
+  @app.route('/actor', methods=['POST'])
+  def add_actor():
+    body = request.get_json()
+    new_name = body.get('name', None)
+    new_gender = body.get('gender', None)
+    new_age= body.get('age', None)
+    try:
+      actor = Actor(name=new_name, gender=new_gender, age=new_age)
+      actor.insert()
+      body['id'] = Actor.id
+      return jsonify({
+          "success": True,
+          "actor": actor.format()
+          })
+    except:
+      abort(422)
 
   @app.route('/moive', methods=['POST'])
   def add_movie():
@@ -73,6 +90,30 @@ def create_app(test_config=None):
             })
     except:
       abort(422)
+
+  @app.route('/actors/<int:id>', methods=['PATCH'])
+  def update_actor(id):
+    actor = Actor.query.filter(Actor.id == id).one_or_none()
+    if actor is None:
+      abort(404)
+
+    body = request.get_json()
+    new_name = body.get('name', None)
+    new_gender = body.get('gender', None)
+    new_age= body.get('age', None)
+    
+    actor.name = new_name
+    actor.gender = new_gender
+    actor.age= new_age
+
+    try:
+      actor.update()
+      return jsonify({
+          "success": True,
+          "actor": actor.format()
+          })
+    except:
+      abort(404)
 
   @app.route('/movies/<int:id>', methods=['PATCH'])
   def update_movie(id):
@@ -95,7 +136,6 @@ def create_app(test_config=None):
           })
     except:
       abort(404)
-
 
   @app.route('/movies/<int:id>', methods=['DELETE'])
   def delete_movie(id): 
