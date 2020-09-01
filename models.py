@@ -18,7 +18,6 @@ def setup_db(app, database_path=database_path):
     db.init_app(app)
     db.create_all()
 
-
 '''
 Actor
 Have name  ,age and gender
@@ -45,6 +44,17 @@ class Actor(db.Model):
       'age': self.age
       }
 
+  def insert(self):
+    db.session.add(self)
+    db.session.commit()
+
+  def update(self):
+    db.session.commit()
+    
+  def delete(self):
+    db.session.delete(self)
+    db.session.commit()
+    
 '''
 Movie
 Have name and release date
@@ -67,7 +77,7 @@ class Movie(db.Model):
       'title': self.title,
       'release_date': self.release_date
       }
-            
+
   def insert(self):
     db.session.add(self)
     db.session.commit()
@@ -100,4 +110,14 @@ class Cast(db.Model):
       'movie_id': self.movie_id,
       'actor_id': self.actor_id
       }
-            
+
+  def insert(self):
+    db.session.add(self)
+    db.session.commit()
+
+  def update(self):
+    db.session.commit()
+    
+  def delete(self):
+    db.session.delete(self)
+    db.session.commit()            
