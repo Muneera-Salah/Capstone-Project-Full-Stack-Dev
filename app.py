@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, jsonify, abort
 from flask_sqlalchemy import SQLAlchemy
-from models import setup_db, Actor, Movie
+from models import setup_db, Actor, Movie, Cast
 from sqlalchemy import exc
 import json
 from flask_cors import CORS
