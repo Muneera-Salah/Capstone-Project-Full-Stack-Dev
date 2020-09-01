@@ -26,7 +26,7 @@ class Actor(db.Model):
   __tablename__ = 'Actor'
 
   id = Column(Integer, primary_key=True)
-  name = Column(String)
+  name = Column(String,nullable=False)
   age = Column(Integer)
   gender = Column(String)
   casts = db.relationship('Cast', backref='Actor', lazy=True)

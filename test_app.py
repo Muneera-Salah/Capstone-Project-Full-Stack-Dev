@@ -29,7 +29,12 @@ class CapstoneTestCase(unittest.TestCase):
         self.new_actor = {
             'name': 'Tom Hanks',
             'gender': 'male',
-            'age': '61'
+            'age': 61
+        }     
+        
+        self.new_actor_missing_name = {
+            'gender': 'male',
+            'age': 61
         }
         
         # binds the app to the current context
@@ -53,6 +58,12 @@ class CapstoneTestCase(unittest.TestCase):
         data = json.loads(res.data)
         pass
 
+    def test_422_if_actor_creation_fails(self):
+        res = self.client().post('/actor', json=self.new_actor_missing_name)
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 422)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'unprocessable')
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
