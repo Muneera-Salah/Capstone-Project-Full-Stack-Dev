@@ -37,6 +37,10 @@ class CapstoneTestCase(unittest.TestCase):
             'age': 61
         }
         
+        self.new_moive_missing_name = {
+            'release_date': '1995-1-1'
+        }
+
         # binds the app to the current context
         with self.app.app_context():
             self.db = SQLAlchemy()
@@ -60,6 +64,13 @@ class CapstoneTestCase(unittest.TestCase):
 
     def test_422_if_actor_creation_fails(self):
         res = self.client().post('/actor', json=self.new_actor_missing_name)
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 422)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'unprocessable')
+
+    def test_422_if_moive_creation_fails(self):
+        res = self.client().post('/moive', json=self.new_moive_missing_name)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 422)
         self.assertEqual(data['success'], False)
