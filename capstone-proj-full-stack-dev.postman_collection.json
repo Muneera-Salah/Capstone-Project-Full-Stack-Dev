@@ -1,0 +1,472 @@
+{
+	"info": {
+		"_postman_id": "290470af-9523-4950-963e-5d421fe7bb06",
+		"name": "capstone-proj-full-stack-dev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Casting Assistant",
+			"item": [
+				{
+					"name": "https://capstone-proj-full-stack-dev.herokuapp.com/movies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://capstone-proj-full-stack-dev.herokuapp.com/movies",
+							"protocol": "https",
+							"host": [
+								"capstone-proj-full-stack-dev",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://capstone-proj-full-stack-dev.herokuapp.com/actors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://capstone-proj-full-stack-dev.herokuapp.com/actors",
+							"protocol": "https",
+							"host": [
+								"capstone-proj-full-stack-dev",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFiSS1tdzZfejMwSVNfdTBXd2F5OSJ9.eyJpc3MiOiJodHRwczovL2Rldi1kd3cwMXNoYy51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWY0ZjlhYTdjNjQ3OGIwMDY3ZDhjNzVlIiwiYXVkIjoiY2Fwc3RvbmUtcHJvamVjdC1mc25kYXBpIiwiaWF0IjoxNTk5MDY1OTQ5LCJleHAiOjE1OTkxNTIzNDksImF6cCI6IldLd1lkV0JvUm4xaGZpY09HdHFVMU9yeGhTMGZtWEY2Iiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyJdfQ.fM5d9SGfH3wXR-HE4IZOZM35U8q3rwIB0oLKRrw0k9yfEFfNEt_Q2UWKFNOZlskKl9Nja8Sy3gZlfRvlcEmCRpBupaes-ZLOIEuAPo6BA87d29_Y-snsjWUzdRkTMfy5G3HYUjL11RG0H8RGo0Bx1YlfjLFvNquVV4w97ef2728mIfFY07PLA33leu8IA4yZRsMnfQWjrh5kLJGZeRWzlVD-6a_ick8ZP8G_GJAl-wM_F1jxZHno1niLNxnpSlg7Hv5BNl8hJ_Z9UQ0LnUUf3klnMgjZnsY2HNFL9YkZUMWLDd4_0rEK_9x-qsqHfCDv3fGPJZDJTPCqdBhawEXs9g",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9cf5091e-347e-4a46-815d-b1f41f2a24c8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e023ec79-4cb2-4a07-9c67-d6fb81da2a7d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Casting Director",
+			"item": [
+				{
+					"name": "https://capstone-proj-full-stack-dev.herokuapp.com/movies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://capstone-proj-full-stack-dev.herokuapp.com/movies",
+							"protocol": "https",
+							"host": [
+								"capstone-proj-full-stack-dev",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://capstone-proj-full-stack-dev.herokuapp.com/actors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://capstone-proj-full-stack-dev.herokuapp.com/actors",
+							"protocol": "https",
+							"host": [
+								"capstone-proj-full-stack-dev",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://capstone-proj-full-stack-dev.herokuapp.com/actors",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Tom Hanks\",\n    \"gender\": \"male\",\n    \"age\": 61\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://capstone-proj-full-stack-dev.herokuapp.com/actor",
+							"protocol": "https",
+							"host": [
+								"capstone-proj-full-stack-dev",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://capstone-proj-full-stack-dev.herokuapp.com/actors/1",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"age\": 60,\n    \"gender\": \"male\",\n    \"name\": \"Tom Hanks\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://capstone-proj-full-stack-dev.herokuapp.com/actors/1",
+							"protocol": "https",
+							"host": [
+								"capstone-proj-full-stack-dev",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://capstone-proj-full-stack-dev.herokuapp.com/movies/1",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\" : \"Toy Story 4\",\n    \"release_date\":\"2019-1-22\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://capstone-proj-full-stack-dev.herokuapp.com/movies/1",
+							"protocol": "https",
+							"host": [
+								"capstone-proj-full-stack-dev",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"movies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFiSS1tdzZfejMwSVNfdTBXd2F5OSJ9.eyJpc3MiOiJodHRwczovL2Rldi1kd3cwMXNoYy51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWY0ZmNkNmFjNjQ3OGIwMDY3ZDhjYzY4IiwiYXVkIjoiY2Fwc3RvbmUtcHJvamVjdC1mc25kYXBpIiwiaWF0IjoxNTk5MDY2MTYxLCJleHAiOjE1OTkxNTI1NjEsImF6cCI6IldLd1lkV0JvUm4xaGZpY09HdHFVMU9yeGhTMGZtWEY2Iiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyIsInBhdGNoOmFjdG9ycyIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3IiXX0.AsA_Hiym6A9ZZBSj1ZGspBfjsuXSzLD98yGJ23q5B8Si_3IPWKpfouPpxp9kbnU_9eOeiy7xSvzQgw1D5Pp1ZSSedoS0OdNLtp-rPowOUxwBErPmeqpYh10Q3l-tOPAgI5iy_41uY21dvPSUV9HX1yEmDYCAsm-omGeb9pkLPeRT1fU17Z-hYYll-DBNA9qv9qzavvIiUCe9o4HwnGHYOk7iqCszqA2abfhEH_N8cEFIYqCYXAiKRXOG8-KGwMI_lWnKjKBra0b1MrBiYJoJrfZUjjntZIZW0NgJWPsApSITrC3E3RX4E-4b1Li7V0DBa4qf_to5BpZF2UCKZi2qyg",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7a855c84-6945-4a9d-81fc-1dfc50d2d204",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2d70e3b6-239c-48e8-ae3b-68764f55567a",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Executive Producer",
+			"item": [
+				{
+					"name": "https://capstone-proj-full-stack-dev.herokuapp.com/movies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://capstone-proj-full-stack-dev.herokuapp.com/movies",
+							"protocol": "https",
+							"host": [
+								"capstone-proj-full-stack-dev",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://capstone-proj-full-stack-dev.herokuapp.com/actors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://capstone-proj-full-stack-dev.herokuapp.com/actors",
+							"protocol": "https",
+							"host": [
+								"capstone-proj-full-stack-dev",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://capstone-proj-full-stack-dev.herokuapp.com/actors",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Tom Hanks\",\n    \"gender\": \"male\",\n    \"age\": 61\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://capstone-proj-full-stack-dev.herokuapp.com/actor",
+							"protocol": "https",
+							"host": [
+								"capstone-proj-full-stack-dev",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://capstone-proj-full-stack-dev.herokuapp.com/actors/1",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"age\": 60,\n    \"gender\": \"male\",\n    \"name\": \"Tom Hanks\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://capstone-proj-full-stack-dev.herokuapp.com/actors/1",
+							"protocol": "https",
+							"host": [
+								"capstone-proj-full-stack-dev",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://capstone-proj-full-stack-dev.herokuapp.com/movies/1",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\" : \"Toy Story 4\",\n    \"release_date\":\"2019-1-22\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://capstone-proj-full-stack-dev.herokuapp.com/movies/1",
+							"protocol": "https",
+							"host": [
+								"capstone-proj-full-stack-dev",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"movies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://capstone-proj-full-stack-dev.herokuapp.com/movie",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\" : \"title\",\n    \"release_date\":\"2002-1-22\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://capstone-proj-full-stack-dev.herokuapp.com/movie",
+							"protocol": "https",
+							"host": [
+								"capstone-proj-full-stack-dev",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"movie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://capstone-proj-full-stack-dev.herokuapp.com/movies/11",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://capstone-proj-full-stack-dev.herokuapp.com/movies/11",
+							"protocol": "https",
+							"host": [
+								"capstone-proj-full-stack-dev",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"movies",
+								"11"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFiSS1tdzZfejMwSVNfdTBXd2F5OSJ9.eyJpc3MiOiJodHRwczovL2Rldi1kd3cwMXNoYy51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWY0ZmU5ZDExNDYxNjEwMDZkMjViNDE4IiwiYXVkIjoiY2Fwc3RvbmUtcHJvamVjdC1mc25kYXBpIiwiaWF0IjoxNTk5MDcyODgxLCJleHAiOjE1OTkxNTkyODEsImF6cCI6IldLd1lkV0JvUm4xaGZpY09HdHFVMU9yeGhTMGZtWEY2Iiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6bW92aWVzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9yIiwicG9zdDptb3ZpZSJdfQ.zG85HVQZ5Qhj6APvaj11HZ9aRyB8SIbbjsvbW1X7NUCktO_5nL1JqKWJd-MTkfdo_NYqWG8KbclIRyK3gashvatFhgz96I4sseuZ7uRty0l5-Ep_0mYCDlNQ2ms7mOgeb5OOAE-AEibeuq_2zPfHF6v4huO3ssve4vPRw-CB5dwqy0QwWCHX1mqMu0Y8br7YAu8m0XWnF-HLWeglKnU68UrElT3W-V8yX2p7bA9AVA1qFZJfk2MuEkdYk0qqVWf1_4dQeMvapbtlIigkv69W2MZ0T-7bNb2ooyMYaqGvQUU64yQH1I5jTAlDh6jlqe_GN5eBHZBojsgHiC8F_C_Z9Q",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ff167e94-9d0c-438a-8713-44163c3d9b68",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ff806f31-e6f4-4a08-a974-7b95617271c7",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

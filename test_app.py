@@ -6,6 +6,9 @@ from app import create_app
 from models import setup_db, Actor, Movie, Cast
 
 database_path = os.environ['DATABASE_URL']
+casting_assistant_token = os.environ['casting_assistant_token']
+casting_director_token = os.environ['casting_director_token']
+executive_producer_token = os.environ['executive_producer_token']
 
 # localhost
 # database_name = "capstone_test"
@@ -51,7 +54,11 @@ class CapstoneTestCase(unittest.TestCase):
         self.update_movie_data = {
             'title': 'Toy Story2',
             'release_date': '2020-1-1'
-        }     
+        }
+
+        self.casting_assistant_token_header = { "Authorization": 'bearer ' + casting_assistant_token }
+        self.casting_director_token_header = { "Authorization": 'bearer ' + casting_director_token }   
+        self.executive_producer_token_header = { "Authorization": 'bearer ' + executive_producer_token }   
 
         # binds the app to the current context
         with self.app.app_context():
@@ -69,17 +76,25 @@ class CapstoneTestCase(unittest.TestCase):
     /actors route
     '''
     def test_get_actors(self):
-        res = self.client().get('/actors')
+        res = self.client().get('/actors', headers=self.executive_producer_token_header)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertTrue(data['actors'])
+
+    def test_401_if_missing_token_get_actors(self):
+        res = self.client().get('/actors', headers='')
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 401)
+        self.assertEqual(data['code'], 'authorization_header_missing')
+        self.assertEqual(data['description'], 'Authorization header is expected.')
+
     '''
     GET
     /movies route
     '''
     def test_get_movies(self):
-        res = self.client().get('/movies')
+        res = self.client().get('/movies', headers=self.executive_producer_token_header)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
@@ -89,12 +104,12 @@ class CapstoneTestCase(unittest.TestCase):
     /actor route
     '''
     def test_create_new_actor(self):
-        res = self.client().post('/actor', json=self.new_actor)
+        res = self.client().post('/actor', json=self.new_actor, headers=self.executive_producer_token_header)
         data = json.loads(res.data)
         pass
 
     def test_422_if_actor_creation_fails(self):
-        res = self.client().post('/actor', json=self.new_actor_missing_name)
+        res = self.client().post('/actor', json=self.new_actor_missing_name, headers=self.executive_producer_token_header)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 422)
         self.assertEqual(data['success'], False)
@@ -105,30 +120,37 @@ class CapstoneTestCase(unittest.TestCase):
     /movie route
     '''
     def test_create_new_movie(self):
-        res = self.client().post('/movie', json=self.new_movie)
+        res = self.client().post('/movie', json=self.new_movie, headers=self.executive_producer_token_header)
         data = json.loads(res.data)
         pass
 
     def test_422_if_movie_creation_fails(self):
-        res = self.client().post('/movie', json=self.new_movie_missing_name)
+        res = self.client().post('/movie', json=self.new_movie_missing_name, headers=self.executive_producer_token_header)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 422)
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'unprocessable')
+
+    def test_401_if_movie_creation_unauthorized(self):
+        res = self.client().post('/movie', json=self.new_movie, headers=self.casting_director_token_header)
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 401)
+        self.assertEqual(data['code'], 'unauthorized')
+        self.assertEqual(data['description'], 'Permission not found.')
 
     '''
     PATCH
     /actors/<int:id> route
     '''
     def test_update_actor(self):
-        res = self.client().patch('/actors/1', json=self.update_actor_data)
+        res = self.client().patch('/actors/1', json=self.update_actor_data, headers=self.executive_producer_token_header)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertTrue(data['actor'])
 
     def test_404_if_update_actor_fails(self):
-        res = self.client().patch('/actors/5000', json=self.update_actor_data)
+        res = self.client().patch('/actors/5000', json=self.update_actor_data, headers=self.executive_producer_token_header)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 404)
         self.assertEqual(data['success'], False)
@@ -139,14 +161,14 @@ class CapstoneTestCase(unittest.TestCase):
     /movies/<int:id> route
     '''
     def test_update_movie(self):
-        res = self.client().patch('/movies/1', json=self.update_movie_data)
+        res = self.client().patch('/movies/1', json=self.update_movie_data, headers=self.executive_producer_token_header)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertTrue(data['movie'])
 
     def test_404_if_update_movie_fails(self):
-        res = self.client().patch('/movies/5000', json=self.update_movie_data)
+        res = self.client().patch('/movies/5000', json=self.update_movie_data, headers=self.executive_producer_token_header)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 404)
         self.assertEqual(data['success'], False)
@@ -157,18 +179,25 @@ class CapstoneTestCase(unittest.TestCase):
     /movies/<int:id> route
     '''
     def test_detete_movie(self):
-        res = self.client().delete('/movies/1')
+        res = self.client().delete('/movies/1', headers=self.executive_producer_token_header)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertTrue(data['movie_id'])
 
     def test_404_if_detete_movie_fails(self):
-        res = self.client().delete('/movies/5000')
+        res = self.client().delete('/movies/5000', headers=self.executive_producer_token_header)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 404)
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'resource not found')
+
+    def test_401_if_movie_delete_unauthorized(self):
+        res = self.client().delete('/movies/1', headers=self.casting_assistant_token_header)
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 401)
+        self.assertEqual(data['code'], 'unauthorized')
+        self.assertEqual(data['description'], 'Permission not found.')
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
