@@ -161,7 +161,7 @@ class CapstoneTestCase(unittest.TestCase):
     /movies/<int:id> route
     '''
     def test_update_movie(self):
-        res = self.client().patch('/movies/1', json=self.update_movie_data, headers=self.executive_producer_token_header)
+        res = self.client().patch('/movies/1', json=self.update_movie_data, headers=self.casting_director_token_header)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
