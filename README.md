@@ -98,3 +98,29 @@ find tokens for every role at setup.sh file
     "release_date":"2019-1-22"
 }
 ```
+### PATCH '/actors/1'
+- To add a update actor data
+```
+{
+    "actor": {
+        "age": 60,
+        "gender": "male",
+        "id": 1,
+        "name": "Tom Hanks"
+    },
+    "success": true
+}
+```
+
+### PATCH '/movies/1'
+- To add a update movie data
+```
+{
+    "movie": {
+        "id": 1,
+        "release_date": "Tue, 22 Jan 2019 00:00:00 GMT",
+        "title": "Toy Story 4"
+    },
+    "success": true
+}
+```
