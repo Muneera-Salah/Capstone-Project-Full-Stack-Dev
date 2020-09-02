@@ -112,15 +112,14 @@ find tokens for every role at setup.sh file
 }
 ```
 
-### PATCH '/movies/1'
-- To add a update movie data
+### DELETE '/movies/1'
+- To add a delet movie
 ```
 {
-    "movie": {
-        "id": 1,
-        "release_date": "Tue, 22 Jan 2019 00:00:00 GMT",
-        "title": "Toy Story 4"
-    },
+    "movie_id": 1,
     "success": true
 }
 ```
+
+### Test API at postman app
+import capstone-proj-full-stack-dev.postman_collection.json file to postman app
