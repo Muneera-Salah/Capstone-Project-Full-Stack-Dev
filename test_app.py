@@ -179,7 +179,7 @@ class CapstoneTestCase(unittest.TestCase):
     /movies/<int:id> route
     '''
     def test_detete_movie(self):
-        res = self.client().delete('/movies/1', headers=self.executive_producer_token_header)
+        res = self.client().delete('/movies/2', headers=self.executive_producer_token_header)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
