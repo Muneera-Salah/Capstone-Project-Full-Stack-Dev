@@ -76,7 +76,7 @@ class CapstoneTestCase(unittest.TestCase):
     /actors route
     '''
     def test_get_actors(self):
-        res = self.client().get('/actors', headers=self.executive_producer_token_header)
+        res = self.client().get('/actors', headers=self.casting_assistant_token_header)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
@@ -94,7 +94,7 @@ class CapstoneTestCase(unittest.TestCase):
     /movies route
     '''
     def test_get_movies(self):
-        res = self.client().get('/movies', headers=self.executive_producer_token_header)
+        res = self.client().get('/movies', headers=self.casting_director_token_header)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
@@ -104,12 +104,12 @@ class CapstoneTestCase(unittest.TestCase):
     /actor route
     '''
     def test_create_new_actor(self):
-        res = self.client().post('/actor', json=self.new_actor, headers=self.executive_producer_token_header)
+        res = self.client().post('/actor', json=self.new_actor, headers=self.casting_director_token_header)
         data = json.loads(res.data)
         pass
 
     def test_422_if_actor_creation_fails(self):
-        res = self.client().post('/actor', json=self.new_actor_missing_name, headers=self.executive_producer_token_header)
+        res = self.client().post('/actor', json=self.new_actor_missing_name, headers=self.casting_director_token_header)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 422)
         self.assertEqual(data['success'], False)
