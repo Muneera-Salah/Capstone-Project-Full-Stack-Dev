@@ -5,6 +5,7 @@ from models import setup_db, Actor, Movie, Cast
 from sqlalchemy import exc
 import json
 from flask_cors import CORS
+from auth import AuthError, requires_auth
 
 def create_app(test_config=None):
   # create and configure the app
@@ -28,7 +29,8 @@ def create_app(test_config=None):
     return 'index'
   
   @app.route('/actors', methods=['GET'])
-  def get_actors():
+  @requires_auth('get:actors')
+  def get_actors(payload):
     try:
       query_results = Actor.query.all()
       if query_results is None:
@@ -43,7 +45,8 @@ def create_app(test_config=None):
       abort(422)  
 
   @app.route('/movies', methods=['GET'])
-  def get_movies():
+  @requires_auth('get:movies')
+  def get_movies(payload):
     try:
       query_results = Movie.query.all()
       if query_results is None:
@@ -59,7 +62,8 @@ def create_app(test_config=None):
       abort(422)
 
   @app.route('/actor', methods=['POST'])
-  def add_actor():
+  @requires_auth('post:actor')
+  def add_actor(payload):
     body = request.get_json()
     new_name = body.get('name', None)
     new_gender = body.get('gender', None)
@@ -75,8 +79,9 @@ def create_app(test_config=None):
     except:
       abort(422)
 
-  @app.route('/moive', methods=['POST'])
-  def add_movie():
+  @app.route('/movie', methods=['POST'])
+  @requires_auth('post:movie')
+  def add_movie(payload):
     body = request.get_json()
     new_title = body.get('title', None)
     new_release_date = body.get('release_date', None)
@@ -92,7 +97,8 @@ def create_app(test_config=None):
       abort(422)
 
   @app.route('/actors/<int:id>', methods=['PATCH'])
-  def update_actor(id):
+  @requires_auth('patch:actors')
+  def update_actor(payload,id):
     actor = Actor.query.filter(Actor.id == id).one_or_none()
     if actor is None:
       abort(404)
@@ -116,7 +122,8 @@ def create_app(test_config=None):
       abort(404)
 
   @app.route('/movies/<int:id>', methods=['PATCH'])
-  def update_movie(id):
+  @requires_auth('patch:movies')
+  def update_movie(payload,id):
     movie = Movie.query.filter(Movie.id == id).one_or_none()
     if movie is None:
       abort(404)
@@ -138,7 +145,8 @@ def create_app(test_config=None):
       abort(404)
 
   @app.route('/movies/<int:id>', methods=['DELETE'])
-  def delete_movie(id): 
+  @requires_auth('delete:movies')
+  def delete_movie(payload,id): 
     try:
       movie = Movie.query.filter(Movie.id == id).one_or_none()
       if movie is None:
@@ -147,7 +155,7 @@ def create_app(test_config=None):
           movie.delete()
           return jsonify({
               "success": True,
-              "moive_id": id
+              "movie_id": id
           })
     except:
         abort(404)
@@ -194,7 +202,14 @@ def create_app(test_config=None):
         "error": 405,
         "message": "method not allowed"
         }), 405
-        
+
+  ''' 
+  AuthError Handling
+  '''        
+  @app.errorhandler(AuthError)
+  def auth_error(error):
+      return jsonify(error.error), error.status_code
+
   return app
 
 app = create_app()

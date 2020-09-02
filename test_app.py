@@ -6,8 +6,9 @@ from app import create_app
 from models import setup_db, Actor, Movie, Cast
 
 database_path = os.environ['DATABASE_URL']
+
 # localhost
-# database_name = "capstone"
+# database_name = "capstone_test"
 # database_path = "postgres://{}:{}@{}/{}".format('postgres', 'postgres','localhost:5432', database_name)
 
 
@@ -37,7 +38,7 @@ class CapstoneTestCase(unittest.TestCase):
             'age': 61
         }
 
-        self.new_moive_missing_name = {
+        self.new_movie_missing_name = {
             'release_date': '1995-1-1'
         }
 
@@ -47,7 +48,7 @@ class CapstoneTestCase(unittest.TestCase):
             'age': 60
         }     
         
-        self.update_moive_data = {
+        self.update_movie_data = {
             'title': 'Toy Story2',
             'release_date': '2020-1-1'
         }     
@@ -101,15 +102,15 @@ class CapstoneTestCase(unittest.TestCase):
 
     '''
     POST
-    /moive route
+    /movie route
     '''
     def test_create_new_movie(self):
-        res = self.client().post('/moive', json=self.new_movie)
+        res = self.client().post('/movie', json=self.new_movie)
         data = json.loads(res.data)
         pass
 
-    def test_422_if_moive_creation_fails(self):
-        res = self.client().post('/moive', json=self.new_moive_missing_name)
+    def test_422_if_movie_creation_fails(self):
+        res = self.client().post('/movie', json=self.new_movie_missing_name)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 422)
         self.assertEqual(data['success'], False)
@@ -138,14 +139,14 @@ class CapstoneTestCase(unittest.TestCase):
     /movies/<int:id> route
     '''
     def test_update_movie(self):
-        res = self.client().patch('/movies/1', json=self.update_moive_data)
+        res = self.client().patch('/movies/1', json=self.update_movie_data)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertTrue(data['movie'])
 
     def test_404_if_update_movie_fails(self):
-        res = self.client().patch('/movies/5000', json=self.update_moive_data)
+        res = self.client().patch('/movies/5000', json=self.update_movie_data)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 404)
         self.assertEqual(data['success'], False)
@@ -155,14 +156,14 @@ class CapstoneTestCase(unittest.TestCase):
     DELETE
     /movies/<int:id> route
     '''
-    def test_detete_moive(self):
+    def test_detete_movie(self):
         res = self.client().delete('/movies/1')
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertTrue(data['moive_id'])
+        self.assertTrue(data['movie_id'])
 
-    def test_404_if_detete_moive_fails(self):
+    def test_404_if_detete_movie_fails(self):
         res = self.client().delete('/movies/5000')
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 404)

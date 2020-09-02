@@ -4,8 +4,9 @@ import json
 import os
 
 database_path = os.environ['DATABASE_URL']
+
 # localhost
-# database_name = "capstone_test"
+# database_name = "capstone"
 # database_path = "postgres://{}:{}@{}/{}".format('postgres', 'postgres','localhost:5432', database_name)
 
 db = SQLAlchemy()
