@@ -122,4 +122,4 @@ find tokens for every role at setup.sh file
 ```
 
 ### Test API at postman app
-import capstone-proj-full-stack-dev.postman_collection.json file to postman app
+import `capstone-proj-full-stack-dev.postman_collection.json` file to postman app
