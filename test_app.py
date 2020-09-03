@@ -4,6 +4,7 @@ import json
 from flask_sqlalchemy import SQLAlchemy
 from app import create_app
 from models import setup_db, Actor, Movie, Cast
+import os
 
 database_path = os.environ['DATABASE_URL']
 casting_assistant_token = os.environ['casting_assistant_token']
